@@ -2,6 +2,7 @@ var handleSelectpicker = function () {
     $('.selectpicker').selectpicker('render');
 };
 
+
 function filterLoadedSensors(data, filter) {
     //saving nodes...we will need them to get unit types and such when drawing charts
     var myNodes = JSON.parse(data);

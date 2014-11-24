@@ -109,24 +109,12 @@ if (substr($cmd, 0, 3) == "api"){
 else {
 	$url = $miner["url1"] . $cmd;
 }
-//  . "?" . urlencode($pars);
-
-// print_r($url);
 
 $url = str_replace("%3D", "=", $url);
 $url = str_replace("%26", "&", $url);
 $url = str_replace('"', '%22', $url);
 $url = str_replace(" ", "%20", $url);
-// if (isset($_POST["Epl"])) {
-	// print_r("bla");
-	// print_r($_POST);
-	// $XML = getURLPost($url, $_POST, 0);
-	// print_r("bla");
-// }
-// else {
-	// print_r("bla1");
-// print_r($url);
-//??? why doesn't this work, but works if I do it by hand? ... looks like some kind of translation problem (works for simple char string)
+
 $XML .= passthruHTTP($url);
 // }
 $size = strlen($XML);
@@ -137,7 +125,6 @@ header ("Pragma: no-cache");
 header("Expires: 0"); 
 header("Content-Length: " . $size);
 
-// http://demo3.nrg4cast.org/proxy.php?cmd=Esper-Services/EventPatternRemoval?name=X
 
 echo $XML;
 ?>
