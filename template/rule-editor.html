@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Rule Editor</title>
+	<link rel="stylesheet" href="../assets/plugins/bootstrap-3.2.0/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../assets/css/jstree.style.min.css" />
+    <link href="../assets/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+
+    <link href="../assets/plugins/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../assets/css/style-fixed.css" rel="stylesheet" />
+    <link href="../assets/css/style-responsive.min.css" rel="stylesheet" />
+    <link href="../assets/css/theme/default.css" rel="stylesheet" id="theme" />
+    <link href="../assets/css/theme/orange.css" rel="stylesheet" />
+
+  
+	<script src="../assets/js/jquery-1.10.2.min.js"></script>
+	<script src="../assets/plugins/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+	<script src="../assets/js/jquery.address-1.6.js"></script>
+	<script src="../assets/js/vakata.js"></script>
+	<script src="../assets/js/jstree.min.js"></script>
+
+    <script src="../assets/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
+
+    <style>
+        .panel-body, .panel-collapse, .panel {
+            overflow: visible !important;
+        }
+    </style>
+</head>
+<body>
+<!-- begin #content -->
+<div id="content" style="padding-left: 3%; padding-right: 2%; padding-top: 2%; background-color: lightgrey">
+    <!-- begin page-header -->
+    <h1 class="page-header">Rule editor</h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+          
+
+    <div class="panel-group" id="accordion">
+        <!-- begin row -->
+        <div class="row" id="content">
+            <!-- begin col-8 -->
+            <div class="col-md-12">
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn">
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        </div>
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion1" href="#collapse1">
+                                <font color="white" id="loading1">Create a new rule (loading sensors ...)</font>
+                            </a> </h4>
+                    </div>
+                   
+                </div>
+            </div>
+            <!-- end col-8 -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end #content -->
+    <div class="pannel-body" id="collapse1">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            AND/OR
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <button type="button" class="btn btn-success btn-sm" onclick="create('and', 'AND');"><i class="glyphicon glyphicon-ok-sign"></i> AND</button>
+                        <button type="button" class="btn btn-success btn-sm" onclick="create('or', 'OR');"><i class="glyphicon glyphicon-ok-circle"></i> OR</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                            Sensor - Value
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body row">
+                        <p> Select the sensor type, the operator, with which you wish to compare, and a float value to compare to. You must also choose a time window type, with value formatted as (example) 1 day 10 seconds 100 miliseconds. </p>
+                        <p>
+                            <select name="sv-sensor" id="sv-sensor" data-live-search="true" class="from control selectpicker"></select>
+                            <select name="sv-operator" id="sv-operator" class="from control selectpicker">
+                                <option value="=">=</option>
+                                <option value="!=">!=</option>
+                                <option value="lt;">&lt;</option>
+                                <option value="gt">&gt;</option>
+                            </select>
+                            <select name="wintype1" id="wintype1" class="from control selectpicker">
+                                <option value="time">Time</option>
+                                <option value="time_batch">Time batch</option>
+                                <option value="length;">Length</option>
+                                <option value="length_batch">Length batch</option>
+                            </select>
+                        </p>
+                        <p>
+                            <input type="text" name="sv-value" id="sv-value" class="form-control span2" style="width: 25%" placeholder="Input value ..." />
+                        </p>
+                        <p>
+                            <input type="text" name="window1" id="window1" class="form-control span2" style="width: 25%" placeholder="Input time window ..." />
+                        </p>
+                        <p>
+                            <button type="button" class="btn btn-info btn-sm" onclick="create('sensorval');"><i class="glyphicon glyphicon-dashboard"></i> Add</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                            Sensor - Sensor
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p> Select the sensor types and the operator for comparing. You must also choose a time window type, with value formatted as (example) 1 day 10 seconds 100 miliseconds. </p>
+                        <p>
+                            <select name="sv-sensor1" id="sv-sensor1" data-live-search="true" class="from control selectpicker"></select>
+                            <select name="sv-sensor2" id="sv-sensor2" data-live-search="true" class="from control selectpicker"></select>
+                        </p>
+                        <p>
+                            <select name="sv-operator1" id="sv-operator1" class="from control selectpicker">
+                                <option value="=">=</option>
+                                <option value="!=">!=</option>
+                                <option value="lt;">&lt;</option>
+                                <option value="gt">&gt;</option>
+                            </select>
+                            <select name="wintype2" id="wintype2" class="from control selectpicker">
+                                <option value="time">Time</option>
+                                <option value="time_batch">Time batch</option>
+                                <option value="length;">Length</option>
+                                <option value="length_batch">Length batch</option>
+                            </select>
+                        </p>
+                        <p>
+                            <input type="text" name="window2" id="window2" class="form-control span2 tab-content" style="width: 25%" placeholder="Input time window ..." />
+                        </p>
+                        <p>
+                            <button type="button" class="btn btn-info btn-sm" onclick="create('sensorsensor');"><i class="glyphicon glyphicon-transfer"></i> Add</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <h4 class="panel-heading"><font color="black">Rule tree is built here:</font></h4>
+                <div id="jstree" class="demo" style="margin-top:1em; margin-bottom: 1em;"></div>
+                <div style="padding-left: 8%">
+                    <button type="button" class="btn btn-warning btn-sm" onclick="rename();"><i class="glyphicon glyphicon-pencil"></i> Rename</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="tdelete();"><i class="glyphicon glyphicon-remove"></i> Delete</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="restartRule();"><i class="glyphicon glyphicon-remove"></i> Restart writing</button>
+                    <!--<input type="text" value="" style="box-shadow:inset 0 0 4px #eee; width:150px; margin:0; padding:4px 12px; border-radius:4px; border:1px solid silver; font-size:1.0em;" id="q" placeholder="Search" />-->
+                </div>
+
+                
+                <div class="panel-body">
+                    <h4 class="panel-heading"><font color="black">Choose rule level and error type:</font></h4>
+                    <p style="margin-left: 5%">
+                        <input type="text" name="alarm-type" id="alarm-type" class="form-control span2" style="width: 25%" placeholder="Input alarm type (notice, warning, etc.) ..." />
+                    </p>
+                    <p style="margin-left: 5%">
+                        <input type="text" name="error-message" id="error-message" class="form-control span2" style="width: 25%" placeholder="Input returning message ..." />
+                    </p>
+                    <p style="margin-left: 10%">
+                        <button type="button" class="btn btn-success btn-sm" onclick="createRule();"><i class="glyphicon glyphicon-ok-sign"></i>Create rule</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel-group" id="accordion">
+        <!-- begin row -->
+        <div class="row" id="content">
+            <!-- begin col-8 -->
+            <div class="col-md-12">
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn">
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                        </div>
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion1" href="#collapse2">
+                                <font color="white" id="loading2">Browse/delete existing rules</font>
+                            </a>
+                        </h4>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end col-8 -->
+        </div>
+        <!-- end row -->
+    </div>
+    <div class="pannel-body" id="collapse2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                        List of rule names:
+                </h4>
+            </div>
+            <div  class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <select name="list-rules" id="list-rules" data-live-search="true" onchange="showRule();" class="from control selectpicker"></select>
+                </div>
+                <div style="padding-left: 15px">
+                    <button type="button" class="btn btn-success btn-sm" onclick="getRules();"><i class="glyphicon glyphicon-ok-circle"></i> Populate/refresh list</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeRule();"><i class="glyphicon glyphicon-ok-circle"></i> Delete selected rule</button>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    Selected rule:
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in">
+                <div id="show-rule" class="panel-body"> </div>
+            </div>
+        </div>
+    </div>
+    <script src="../template/js/qminer.ruleeditor.filters.js"></script>
+    %plugin1%
+    <script src="../template/js/qminer.ruleeditor.js"></script>
+
+</body>
+</html>
