@@ -31,7 +31,7 @@ $(document).ready(function () {
 
 $.ajax({
     //reading available
-    url: '/api/get-sensors',
+    url: '/proxy.php?cmd=api/get-sensors',
     success: function (data) { filterLoadedSensors(data, filterConf); }
 });
 
