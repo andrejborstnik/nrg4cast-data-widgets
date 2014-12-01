@@ -1,7 +1,7 @@
 $('#loading1').text('Loading available sensors ...');
 $.ajax({
     //reading available
-    url: '/api/get-sensors',
+    url: '/proxy.php?cmd=api/get-sensors',
     success: loadedSensors
 });
 
@@ -21,7 +21,7 @@ $(function () {
 $('#loading1').text('Loading sensor data ...');
 $.ajax({
     //getting information about nodes
-    url: '/api/get-nodes',
+    url: '/proxy.php?cmd=api/get-nodes',
     success: loadedNodes
 });
 
@@ -308,10 +308,10 @@ function highChart(container) {
         }
         var myUrl;
         if (this.raw == "No") {
-            myUrl = '/api/get-aggregates?p=' + escape(this.dataType) + ':' + this.aggregateType + ':' + this.timeInterval + ':' + this.dateStart + ':' + this.dateEnd;
+            myUrl = '/proxy.php?cmd=/api/get-aggregates?p=' + escape(this.dataType) + ':' + this.aggregateType + ':' + this.timeInterval + ':' + this.dateStart + ':' + this.dateEnd;
         }
         else if (this.raw == "Yes") {
-            myUrl = '/api/get-measurements?p=' + escape(this.dataType) + ':' + this.dateStart + ':' + this.dateEnd;
+            myUrl = '/proxy.php?cmd=/api/get-measurements?p=' + escape(this.dataType) + ':' + this.dateStart + ':' + this.dateEnd;
         }
         else {
             console.log("ERROR in checking equality!")
