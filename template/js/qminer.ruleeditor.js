@@ -2,6 +2,12 @@ var handleSelectpicker = function () {
     $('.selectpicker').selectpicker('render');
 };
 
+$('#accordion').on('show hide', function () {
+    $(this).css('height', 'auto');
+});
+$('#accordion1').on('show hide', function () {
+    $(this).css('height', 'auto');
+});
 
 function filterLoadedSensors(data, filter) {
     //saving nodes...we will need them to get unit types and such when drawing charts
@@ -25,7 +31,7 @@ $(document).ready(function () {
 
 $.ajax({
     //reading available
-    url: '/proxy.php?cmd=api/get-sensors',
+    url: '/api/get-sensors',
     success: function (data) { filterLoadedSensors(data, filterConf); }
 });
 
