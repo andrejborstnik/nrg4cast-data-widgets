@@ -287,7 +287,7 @@ function isCorrect(ti) {
         "msec": "miliseconds",
         "miliseconds": "miliseconds",
         "milisecond": "miliseconds"
-    }
+    };
     var map1 = {
         "years": 0,
         "months": 1,
@@ -297,7 +297,7 @@ function isCorrect(ti) {
         "seconds": 5,
         "miliseconds": 6
 
-    }
+    };
     var j = 0;
     var lastUsed = -1;
     var lastNumber = -1;
@@ -310,7 +310,10 @@ function isCorrect(ti) {
         }
         else if (j == 1) {
             if (map[ti[i]] && map1[map[ti[i]]] > lastUsed) {
-                if (lastNumber != 1 &&(ti[i][ti.length - 1] != "s" && ti[i] != "sec" && ti[i] != "min" && ti[i] != "msec")) {
+                if (lastNumber != 1 && (ti[i][ti[i].length - 1] != "s" && ti[i] != "sec" && ti[i] != "min" && ti[i] != "msec")) {
+                    return false;
+                }
+                else if (lastNumber == 1 && ti[i][ti[i].length - 1] == "s") {
                     return false;
                 }
                 else {
@@ -336,7 +339,7 @@ function create(tType) {
     if (!sel.length) { return false; }
     sel = sel[0];
     var map = { 'lt;': '<', 'gt': '>', '=': '=', '!=': '!=' };
-    //??? v deliverablu izbriöi \" pri time windowih
+    //??? v deliverablu izbri≈°i \" pri time windowih
     if (tType == 'sensorsensor') {
         var sensor1 = $("#sv-sensor1 option:selected").val();
         var sensor2 = $("#sv-sensor2 option:selected").val();
@@ -348,7 +351,7 @@ function create(tType) {
             alert("Please select/input all requiered fields.")
             return;
         }
-        if (!(wintype == "None") && (pomo.length < 2 || isCorrect(pomo))) {
+        if (!(wintype == "None") && (pomo.length < 2 || !isCorrect(pomo))) {
             alert("Please insert a proper time window. Example: 10 seconds 100 miliseconds.");
             return;
         }
